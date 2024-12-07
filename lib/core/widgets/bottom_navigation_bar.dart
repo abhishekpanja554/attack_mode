@@ -1,9 +1,9 @@
 import 'package:attack_mode_app/config/themes/constants.dart';
+import 'package:attack_mode_app/core/util/global_utilities.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class BottomNavBar extends StatefulWidget {
-  final List<Widget> items;
+  final List<IconData> items;
   final int? initialIndex;
   const BottomNavBar({super.key, required this.items, this.initialIndex});
 
@@ -27,7 +27,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       children: [
         Container(
           height: 80,
-          width: 305,
+          width: 80 * widget.items.length.toDouble(),
           margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -36,95 +36,66 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                borderRadius: BorderRadius.circular(40),
-                child: Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: ColorManager().lemonGreen,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        BoxIcons.bx_home_alt_2,
-                        size: 30,
-                        color: ColorManager().veryDarkblue,
-                      ),
-                    ],
-                  ),
-                ),
+            children: mapIndexed(
+              widget.items,
+              (index, item) => BottomNavbarItem(
+                icon: item,
+                isSelected: index == currentIndex,
+                onPresssed: () {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
               ),
-              InkWell(
-                borderRadius: BorderRadius.circular(40),
-                child: Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: ColorManager().white,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        BoxIcons.bx_cog,
-                        size: 30,
-                        color: ColorManager().veryDarkblue,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                borderRadius: BorderRadius.circular(40),
-                child: Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: ColorManager().white,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        BoxIcons.bx_circle_three_quarter,
-                        size: 30,
-                        color: ColorManager().veryDarkblue,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                borderRadius: BorderRadius.circular(40),
-                child: Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: ColorManager().white,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        BoxIcons.bx_user,
-                        size: 30,
-                        color: ColorManager().grey,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ).toList(),
           ),
         ),
       ],
+    );
+  }
+}
+
+class BottomNavbarItem extends StatelessWidget {
+  final IconData icon;
+  final bool isSelected;
+  final Function() onPresssed;
+  const BottomNavbarItem({
+    super.key,
+    required this.icon,
+    required this.isSelected,
+    required this.onPresssed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPresssed,
+      borderRadius: BorderRadius.circular(40),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: 70,
+        width: 70,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+          color:
+              isSelected ? ColorManager().lemonGreen : ColorManager().darkGrey,
+          border: isSelected
+              ? Border.all(color: ColorManager().lemonGreen)
+              : Border.all(color: ColorManager().lemonGreen),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 30,
+              color: isSelected
+                  ? ColorManager().veryDarkblue
+                  : ColorManager().white,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

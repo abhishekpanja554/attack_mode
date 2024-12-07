@@ -14,6 +14,7 @@ class ColorManager {
   Color blue = const Color(0xff0066FF);
   Color veryDarkblue = const Color(0xff161622);
   Color grey = const Color(0xff8B8B94);
+  Color darkGrey = const Color(0xff333333);
   Color white = Colors.white;
   Color lemonGreen = const Color(0xffCBD77E);
   Color purple = const Color(0xffA49ECF);
