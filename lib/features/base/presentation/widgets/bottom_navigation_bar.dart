@@ -1,33 +1,25 @@
 import 'package:attack_mode_app/config/themes/constants.dart';
 import 'package:attack_mode_app/core/util/global_utilities.dart';
+import 'package:attack_mode_app/features/base/presentation/providers/base_screen_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends ConsumerWidget {
   final List<IconData> items;
   final int? initialIndex;
-  const BottomNavBar({super.key, required this.items, this.initialIndex});
+  final Function(int)? onItemTap;
+  const BottomNavBar(
+      {super.key, required this.items, this.initialIndex, this.onItemTap});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  int currentIndex = 0;
-
-  @override
-  void initState() {
-    currentIndex = widget.initialIndex ?? 0;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    PageState pageState = ref.watch(pageStateNotifierProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 80,
-          width: 80 * widget.items.length.toDouble(),
+          width: 80 * items.length.toDouble(),
           margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -37,14 +29,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: mapIndexed(
-              widget.items,
+              items,
               (index, item) => BottomNavbarItem(
                 icon: item,
-                isSelected: index == currentIndex,
+                isSelected: index == pageState.currentPageIndex,
                 onPresssed: () {
-                  setState(() {
-                    currentIndex = index;
-                  });
+                  if (onItemTap != null) {
+                    onItemTap!(index);
+                  }
                 },
               ),
             ).toList(),

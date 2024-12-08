@@ -1,19 +1,15 @@
 import 'package:attack_mode_app/config/themes/constants.dart';
-import 'package:attack_mode_app/core/util/screen_size.dart';
-import 'package:attack_mode_app/core/widgets/bottom_navigation_bar.dart';
+import 'package:attack_mode_app/features/base/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:attack_mode_app/core/widgets/circle_outline_button.dart';
+import 'package:attack_mode_app/features/base/presentation/providers/base_screen_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-class BaseScreen extends StatefulWidget {
+class BaseScreen extends ConsumerWidget {
   const BaseScreen({super.key});
 
-  @override
-  State<BaseScreen> createState() => _BaseScreenState();
-}
-
-class _BaseScreenState extends State<BaseScreen> {
   Widget header() {
     return SizedBox(
       height: 70,
@@ -39,16 +35,40 @@ class _BaseScreenState extends State<BaseScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pageState = ref.watch(pageStateNotifierProvider);
+    final pageStateNotifier = ref.watch(pageStateNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: ColorManager().white,
-      body: PageView(
-        children: [
-          
-        ],
+      body: SafeArea(
+        child: PageView(
+          controller: pageState.controller,
+          onPageChanged: (value) {
+            pageStateNotifier.changePageIndex(value);
+          },
+          children: [
+            Container(
+              child: const Text("home"),
+            ),
+            Container(
+              child: const Text("Settings"),
+            ),
+            Container(
+              child: const Text("CHarts"),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(
-        items: [
+        onItemTap: (int index) {
+          pageStateNotifier.changePageIndex(index);
+          pageState.controller.jumpToPage(
+            index,
+            // duration: const Duration(milliseconds: 100),
+            // curve: Curves.ease,
+          );
+        },
+        items: const [
           BoxIcons.bx_home_alt_2,
           BoxIcons.bx_cog,
           BoxIcons.bxs_doughnut_chart,
