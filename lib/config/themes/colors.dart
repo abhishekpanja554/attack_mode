@@ -19,4 +19,5 @@ class ColorManager {
   Color lemonGreen = const Color(0xffCBD77E);
   Color purple = const Color(0xffA49ECF);
   Color black = const Color(0xff282828);
+  Color lightPurple = const Color(0xffE7E4F7);
 }

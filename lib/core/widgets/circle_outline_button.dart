@@ -1,4 +1,4 @@
-import 'package:attack_mode_app/config/themes/constants.dart';
+import 'package:attack_mode_app/config/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 class CircleOutlinedButton extends StatelessWidget {
@@ -15,9 +15,6 @@ class CircleOutlinedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        shape: CircleBorder(
-          side: BorderSide(color: ColorManager().blue, width: 2),
-        ),
         padding: const EdgeInsets.all(20), // Adjust the size of the button
         backgroundColor: ColorManager().veryDarkblue, // Button fill color
         foregroundColor: ColorManager().white, // Text color

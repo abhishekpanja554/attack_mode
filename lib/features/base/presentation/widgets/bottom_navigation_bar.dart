@@ -1,4 +1,4 @@
-import 'package:attack_mode_app/config/themes/constants.dart';
+import 'package:attack_mode_app/config/themes/colors.dart';
 import 'package:attack_mode_app/core/util/global_utilities.dart';
 import 'package:attack_mode_app/features/base/presentation/providers/base_screen_provider.dart';
 import 'package:flutter/material.dart';

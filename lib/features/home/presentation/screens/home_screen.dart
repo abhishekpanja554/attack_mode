@@ -1,19 +1,18 @@
-import 'package:attack_mode_app/config/themes/constants.dart';
+import 'package:attack_mode_app/config/themes/colors.dart';
 import 'package:attack_mode_app/core/util/screen_size.dart';
-import 'package:attack_mode_app/features/base/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:attack_mode_app/core/widgets/circle_outline_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget header() {
     return SizedBox(
       height: 70,
@@ -55,13 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        items: [
-          BoxIcons.bx_home_alt_2,
-          BoxIcons.bx_cog,
-          BoxIcons.bxs_doughnut_chart,
-        ],
       ),
     );
   }
