@@ -23,7 +23,7 @@ class BottomNavBar extends ConsumerWidget {
           margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: ColorManager().black,
+            color: ColorManager.black,
             borderRadius: BorderRadius.circular(40),
           ),
           child: Row(
@@ -70,10 +70,10 @@ class BottomNavbarItem extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           color:
-              isSelected ? ColorManager().lemonGreen : ColorManager().darkGrey,
+              isSelected ? ColorManager.lemonGreen : ColorManager.darkGrey,
           border: isSelected
-              ? Border.all(color: ColorManager().lemonGreen)
-              : Border.all(color: ColorManager().lemonGreen),
+              ? Border.all(color: ColorManager.lemonGreen)
+              : Border.all(color: ColorManager.lemonGreen),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -82,8 +82,8 @@ class BottomNavbarItem extends StatelessWidget {
               icon,
               size: 30,
               color: isSelected
-                  ? ColorManager().veryDarkblue
-                  : ColorManager().white,
+                  ? ColorManager.veryDarkblue
+                  : ColorManager.white,
             ),
           ],
         ),

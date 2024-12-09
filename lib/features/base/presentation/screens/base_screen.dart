@@ -19,11 +19,11 @@ class BaseScreen extends ConsumerWidget {
         children: [
           CircleAvatar(
             radius: 25,
-            backgroundColor: ColorManager().white,
+            backgroundColor: ColorManager.white,
             child: Icon(
               CupertinoIcons.person_alt_circle,
               size: 30,
-              color: ColorManager().blue,
+              color: ColorManager.blue,
             ),
           ),
           CircleOutlinedButton(
@@ -40,7 +40,7 @@ class BaseScreen extends ConsumerWidget {
     final pageState = ref.watch(pageStateNotifierProvider);
     final pageStateNotifier = ref.watch(pageStateNotifierProvider.notifier);
     return Scaffold(
-      backgroundColor: ColorManager().white,
+      backgroundColor: ColorManager.white,
       body: SafeArea(
         child: Stack(
           children: [

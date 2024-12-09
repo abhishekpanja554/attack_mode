@@ -1,4 +1,6 @@
 import 'package:attack_mode_app/config/themes/colors.dart';
+import 'package:attack_mode_app/config/themes/sizes.dart';
+import 'package:attack_mode_app/config/themes/styles.dart';
 import 'package:attack_mode_app/core/util/screen_size.dart';
 import 'package:attack_mode_app/core/widgets/circle_outline_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,11 +23,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         children: [
           CircleAvatar(
             radius: 25,
-            backgroundColor: ColorManager().white,
+            backgroundColor: ColorManager.black,
             child: Icon(
               CupertinoIcons.person_alt_circle,
               size: 30,
-              color: ColorManager().blue,
+              color: ColorManager.lemonGreen,
             ),
           ),
           CircleOutlinedButton(
@@ -40,16 +42,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager().white,
+      backgroundColor: ColorManager.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: SizesManager.kGeneralPadding16,
           child: SizedBox(
             height: ScreenSize.getHeight(context),
             width: ScreenSize.getWidth(context),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 header(),
+                Container(
+                  width: double.infinity,
+                  height: 200,
+                  padding: SizesManager.kGeneralPadding10,
+                  decoration: BoxDecoration(
+                    borderRadius: SizesManager.kBorderRadius30,
+                    color: ColorManager.purple,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Today's Progress",
+                        style: TextStyleManager.kTitleStyleWhite,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
