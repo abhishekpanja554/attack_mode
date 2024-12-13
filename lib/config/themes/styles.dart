@@ -25,8 +25,14 @@ class TextStyleManager {
   );
 
   static TextStyle kTitleStyleWhite14 = GoogleFonts.poppins(
-    fontSize: 18,
+    fontSize: 14,
     color: ColorManager.darkGrey,
     fontWeight: FontWeight.w200,
+  );
+
+  static TextStyle kTitleStyleWhite14Bold = GoogleFonts.poppins(
+    fontSize: 14,
+    color: ColorManager.darkGrey,
+    fontWeight: FontWeight.w400,
   );
 }

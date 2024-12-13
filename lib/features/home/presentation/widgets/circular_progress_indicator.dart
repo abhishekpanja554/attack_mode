@@ -1,4 +1,5 @@
 import 'package:attack_mode_app/config/themes/colors.dart';
+import 'package:attack_mode_app/config/themes/styles.dart';
 import 'package:flutter/material.dart';
 
 class CircleProgressWidget extends StatefulWidget {
@@ -12,12 +13,12 @@ class CircleProgressWidget extends StatefulWidget {
 
 class _CircleProgressWidgetState extends State<CircleProgressWidget>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController barAnimationController;
   late Animation tween;
 
   @override
   void initState() {
-    controller = AnimationController(
+    barAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
@@ -26,37 +27,49 @@ class _CircleProgressWidgetState extends State<CircleProgressWidget>
       end: widget.progress,
     ).animate(
       CurvedAnimation(
-        parent: controller,
+        parent: barAnimationController,
         curve: Curves.decelerate,
       ),
     );
-    controller.forward();
+    barAnimationController.forward();
     // controller.repeat(reverse: true);
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    barAnimationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 70,
-      width: 70,
-      child: AnimatedBuilder(
-          animation: tween,
-          builder: (context, child) {
-            return CircularProgressIndicator(
-              value: tween.value,
-              strokeCap: StrokeCap.round,
-              strokeWidth: 20,
-              backgroundColor: ColorManager.lightPurple,
-              strokeAlign: -0.3,
-            );
-          }),
+    return AnimatedBuilder(
+      animation: tween,
+      builder: (context, child) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: 70,
+              width: 70,
+              child: CircularProgressIndicator(
+                value: tween.value,
+                strokeCap: StrokeCap.round,
+                strokeWidth: 15,
+                backgroundColor: ColorManager.lightPurple,
+                strokeAlign: -0.3,
+              ),
+            ),
+            Text(
+              "${(tween.value * 100).toStringAsFixed(0)}%",
+              style: TextStyleManager.kSubtitleStyleWhiteThin14.copyWith(
+                fontSize: 13,
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

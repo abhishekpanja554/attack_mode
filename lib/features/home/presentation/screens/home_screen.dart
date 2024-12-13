@@ -4,18 +4,20 @@ import 'package:attack_mode_app/config/themes/styles.dart';
 import 'package:attack_mode_app/core/util/screen_size.dart';
 import 'package:attack_mode_app/core/widgets/circle_outline_button.dart';
 import 'package:attack_mode_app/features/home/presentation/widgets/circular_progress_indicator.dart';
+import 'package:attack_mode_app/features/home/presentation/widgets/stat_info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:patterns_canvas/patterns_canvas.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   Widget header() {
     return SizedBox(
       height: 70,
@@ -70,26 +72,38 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   progress: 0.6,
                 ),
               ),
-              SizesManager.kSpace16,
-              Container(
-                height: 80,
-                constraints: BoxConstraints(minWidth: 200),
-                padding: SizesManager.kGeneralPadding8,
-                decoration: BoxDecoration(
-                  borderRadius: SizesManager.kBorderRadius30,
-                  color: Color(0xffF7F9EA)
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      "Today's Progress",
-                      style: TextStyleManager.kTitleStyleWhite14,
+              SizesManager.kSpace20,
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: SizesManager.kBorderRadius16,
+                  child: CustomPaint(
+                    painter: ContainerPatternPainter(),
+                    child: Container(
+                      constraints: const BoxConstraints(minWidth: 200),
+                      padding: SizesManager.kGeneralPadding10,
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          StatInfoWidget(
+                            title: "Rich",
+                            value: "2",
+                            outOf: "5",
+                          ),
+                          StatInfoWidget(
+                            title: "Muscular",
+                            value: "2",
+                            outOf: "5",
+                          ),
+                          StatInfoWidget(
+                            title: "Discipline",
+                            value: "2",
+                            outOf: "5",
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      "Your daily progress",
-                      style: TextStyleManager.kTitleStyleWhite14,
-                    ),
-                  ],
+                  ),
                 ),
               )
             ],
@@ -122,4 +136,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
+}
+
+class ContainerPatternPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    DiagonalStripesLight(
+            bgColor: Color(0xffB8B2DB),
+            fgColor: Colors.white.withValues(alpha: 0.2))
+        .paintOnWidget(canvas, size);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

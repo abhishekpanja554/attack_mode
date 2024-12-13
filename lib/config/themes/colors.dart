@@ -18,4 +18,5 @@ class ColorManager {
   static Color purple = const Color(0xffA49ECF);
   static Color black = const Color(0xff282828);
   static Color lightPurple = const Color(0xffE7E4F7);
+  static Color lightLemonGreen = const Color(0xffF7F9EA);
 }
