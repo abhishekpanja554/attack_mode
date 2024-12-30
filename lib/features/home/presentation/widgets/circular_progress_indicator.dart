@@ -57,8 +57,8 @@ class _CircleProgressWidgetState extends State<CircleProgressWidget>
                 value: tween.value,
                 strokeCap: StrokeCap.round,
                 strokeWidth: 15,
-                backgroundColor: ColorManager.lightPurple,
-                strokeAlign: -0.3,
+                backgroundColor: ColorManager.lemonGreen,
+                strokeAlign: -0.1,
               ),
             ),
             Text(

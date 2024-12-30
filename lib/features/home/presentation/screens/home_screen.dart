@@ -7,8 +7,6 @@ import 'package:attack_mode_app/features/home/presentation/widgets/circular_prog
 import 'package:attack_mode_app/features/home/presentation/widgets/stat_info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:patterns_canvas/patterns_canvas.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final CarouselController controller = CarouselController(initialItem: 1);
+
   Widget header() {
     return SizedBox(
       height: 70,
@@ -45,70 +46,90 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget progressWidget() {
     return Container(
       width: double.infinity,
-      height: 200,
-      padding: SizesManager.kGeneralPadding16,
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        borderRadius: SizesManager.kBorderRadius30,
-        color: ColorManager.purple,
+        borderRadius: BorderRadius.circular(45),
+        color: ColorManager.black,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "Today's Progress",
-            style: TextStyleManager.kTitleStyleWhiteThin14,
-          ),
-          Text(
-            "Your daily progress of all the tasks are shown here",
-            style: TextStyleManager.kSubtitleStyleWhiteThin14,
-          ),
-          SizesManager.kSpace32,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 7),
                 child: CircleProgressWidget(
                   progress: 0.6,
                 ),
               ),
               SizesManager.kSpace20,
               Expanded(
-                child: ClipRRect(
-                  borderRadius: SizesManager.kBorderRadius16,
-                  child: CustomPaint(
-                    painter: ContainerPatternPainter(),
-                    child: Container(
-                      constraints: const BoxConstraints(minWidth: 200),
-                      padding: SizesManager.kGeneralPadding10,
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          StatInfoWidget(
-                            title: "Rich",
-                            value: "2",
-                            outOf: "5",
-                          ),
-                          StatInfoWidget(
-                            title: "Muscular",
-                            value: "2",
-                            outOf: "5",
-                          ),
-                          StatInfoWidget(
-                            title: "Discipline",
-                            value: "2",
-                            outOf: "5",
-                          ),
-                        ],
-                      ),
+                child: Container(
+                  constraints: const BoxConstraints(minWidth: 200),
+                  decoration: BoxDecoration(
+                    color: ColorManager.darkGrey,
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(
+                      color: ColorManager.grey,
+                      width: 1,
                     ),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      StatInfoWidget(
+                        title: "Rich",
+                        value: "2",
+                        outOf: "5",
+                      ),
+                      StatInfoWidget(
+                        title: "Muscular",
+                        value: "2",
+                        outOf: "5",
+                      ),
+                      StatInfoWidget(
+                        title: "Discipline",
+                        value: "2",
+                        outOf: "5",
+                      ),
+                    ],
                   ),
                 ),
               )
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget taskCarousel() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 100),
+      child: CarouselView.weighted(
+        controller: controller,
+        flexWeights: const <int>[1, 7, 1],
+        consumeMaxWeight: false,
+        itemSnapping: true,
+        children: List<Widget>.generate(4, (int index) {
+          return Container(
+            height: 100,
+            child: Card(
+              color: ColorManager.black,
+              child: Center(
+                child: Text(
+                  'Task $index',
+                  style: TextStyleManager.kTitleStyleWhite14Bold,
+                ),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
@@ -128,7 +149,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 header(),
                 SizesManager.kSpace16,
+                Text(
+                  "Today's Progress",
+                  style: TextStyleManager.kTitleStyleWhite14
+                      .copyWith(fontWeight: FontWeight.w500),
+                ),
+                SizesManager.kSpace10,
                 progressWidget(),
+                taskCarousel()
               ],
             ),
           ),
@@ -136,17 +164,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-class ContainerPatternPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    DiagonalStripesLight(
-            bgColor: Color(0xffB8B2DB),
-            fgColor: Colors.white.withValues(alpha: 0.2))
-        .paintOnWidget(canvas, size);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

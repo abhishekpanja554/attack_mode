@@ -19,22 +19,22 @@ class StatInfoWidget extends StatelessWidget {
       children: [
         Text(
           "$title: ",
-          style: TextStyleManager.kTitleStyleWhite14Bold,
+          style: TextStyleManager.kTitleStyleWhite14Bold.copyWith(color: ColorManager.white),
         ),
         RichText(
           text: TextSpan(
             text: '$value ',
             style: TextStyleManager.kSubtitleStyleWhiteThin14
-                .copyWith(color: Colors.green,fontWeight: FontWeight.w500),
+                .copyWith(color: const Color.fromARGB(255, 120, 224, 123),fontWeight: FontWeight.w500),
             children: <TextSpan>[
               TextSpan(
                 text: 'of',
-                style: TextStyleManager.kTitleStyleWhite14,
+                style: TextStyleManager.kSubtitleStyleWhiteThin14,
               ),
               TextSpan(
                 text: ' $outOf',
                 style: TextStyleManager.kSubtitleStyleWhiteThin14
-                    .copyWith(color: Colors.redAccent),
+                    .copyWith(color: const Color.fromARGB(255, 254, 108, 108)),
               ),
             ],
           ),
