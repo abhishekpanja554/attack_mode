@@ -3,6 +3,7 @@ import 'package:attack_mode_app/config/themes/sizes.dart';
 import 'package:attack_mode_app/config/themes/styles.dart';
 import 'package:attack_mode_app/core/util/screen_size.dart';
 import 'package:attack_mode_app/core/widgets/circle_outline_button.dart';
+import 'package:attack_mode_app/features/home/presentation/widgets/carousel_widget.dart';
 import 'package:attack_mode_app/features/home/presentation/widgets/circular_progress_indicator.dart';
 import 'package:attack_mode_app/features/home/presentation/widgets/stat_info_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final CarouselController controller = CarouselController(initialItem: 1);
 
   Widget header() {
@@ -108,32 +108,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget taskCarousel() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 100),
-      child: CarouselView.weighted(
-        controller: controller,
-        flexWeights: const <int>[1, 7, 1],
-        consumeMaxWeight: false,
-        itemSnapping: true,
-        children: List<Widget>.generate(4, (int index) {
-          return Container(
-            height: 100,
-            child: Card(
-              color: ColorManager.black,
-              child: Center(
-                child: Text(
-                  'Task $index',
-                  style: TextStyleManager.kTitleStyleWhite14Bold,
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,7 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizesManager.kSpace10,
                 progressWidget(),
-                taskCarousel()
+                SizesManager.kSpace32,
+                CarouselWidget(),
               ],
             ),
           ),

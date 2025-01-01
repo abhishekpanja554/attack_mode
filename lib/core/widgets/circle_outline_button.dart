@@ -12,14 +12,18 @@ class CircleOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(20), // Adjust the size of the button
-        backgroundColor: ColorManager.veryDarkblue, // Button fill color
-        foregroundColor: ColorManager.white, // Text color
+    return SizedBox(
+      height: 55,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(20), // Adjust the size of the button
+          backgroundColor: ColorManager.veryDarkblue, // Button fill color
+          foregroundColor: ColorManager.white,
+          shape: const CircleBorder(),
+        ),
+        child: Icon(icon, size: 24), // Optional: Icon or Text inside the button
       ),
-      child: Icon(icon, size: 24), // Optional: Icon or Text inside the button
     );
   }
 }
