@@ -3,22 +3,22 @@ import 'package:attack_mode_app/config/themes/sizes.dart';
 import 'package:attack_mode_app/config/themes/styles.dart';
 import 'package:attack_mode_app/core/util/screen_size.dart';
 import 'package:attack_mode_app/core/widgets/circle_outline_button.dart';
+import 'package:attack_mode_app/features/home/presentation/providers/home_screen_provider.dart';
 import 'package:attack_mode_app/features/home/presentation/widgets/carousel_widget.dart';
 import 'package:attack_mode_app/features/home/presentation/widgets/circular_progress_indicator.dart';
 import 'package:attack_mode_app/features/home/presentation/widgets/stat_info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final CarouselController controller = CarouselController(initialItem: 1);
-
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget header() {
     return SizedBox(
       height: 70,
@@ -110,6 +110,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    HomePageState homePageProvider = ref.watch(homePageStateNotifierProvider);
+    HomePageStateNotifier homePageProviderNotifier =
+        ref.read(homePageStateNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: SafeArea(
@@ -131,7 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizesManager.kSpace10,
                 progressWidget(),
                 SizesManager.kSpace32,
-                CarouselWidget(),
+                CarouselWidget(
+                  categories: homePageProvider.categories,
+                  onPageChanged: (index, reason) {
+                    homePageProviderNotifier.changeCurrentCategoryIndex(index);
+                  },
+                ),
               ],
             ),
           ),

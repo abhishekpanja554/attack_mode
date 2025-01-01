@@ -29,6 +29,8 @@ class SizesManager {
   static const kGeneralPadding8 = EdgeInsets.all(8);
   static const kGeneralPadding10 = EdgeInsets.all(10);
   static const kGeneralPadding16 = EdgeInsets.all(16);
+  static const kGeneralPadding20 = EdgeInsets.all(20);
+  static const kGeneralPadding27 = EdgeInsets.all(27);
   static const kGeneralPadding32 = EdgeInsets.all(32);
   static const kHorizontalPadding8 = EdgeInsets.symmetric(horizontal: 8);
   static const kHorizontalPadding16 = EdgeInsets.symmetric(horizontal: 16);
